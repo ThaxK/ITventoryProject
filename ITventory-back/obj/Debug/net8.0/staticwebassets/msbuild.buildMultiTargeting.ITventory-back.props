@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ITventory-back.props" />
+</Project>

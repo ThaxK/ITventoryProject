@@ -1,0 +1,68 @@
+﻿@model RegisterVM
+
+@{
+    ViewData["Title"] = "Creacion de Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Nuevo Usuario</h6>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-12">
+                <form asp-controller="Usuarios" asp-action="Create" method="post" class="form-horizontal">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-row">
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Rol" class="control-label">Seleccionar Rol:</label>
+                            <select asp-for="Rol" class="form-control">
+                                <option value="">Seleccionar...</option>
+                                @foreach (var role in Model.RolesDisponibles)
+                                {
+                                    <option value="@role">@role</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Rol" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Email" class="control-label">Correo electrónico:</label>
+                            <input asp-for="Email" type="email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Password" class="control-label">Contraseña:</label>
+                            <input asp-for="Password" type="password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label asp-for="ConfirmPassword" class="control-label">Confirmar Contraseña:</label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="form-group text-center">
+                        <button id="submit" type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-floppy"></i> Guardar
+                        </button>
+                        <button id="backToList" type="button" class="btn btn-outline-danger" onclick="window.location.href='@Url.Action("Index", "Usuarios")'">
+                            <i class="bi bi-x-octagon"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

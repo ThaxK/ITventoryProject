@@ -1,0 +1,89 @@
+﻿<script src="~/js/Alert.js"></script>
+<script src="~/js/Devices.js"></script>
+@model IEnumerable<Itventory.web.Entidades.Device>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var status = Context.Request.Query["status"];
+    var Disponible = "";
+    var Asignado = "";
+
+    switch (status)
+    {
+        case "1":
+            Disponible = "text-white bg-success";
+            break;
+        case "2":
+            Asignado = "text-white bg-success";
+            break;
+        default:
+            break;
+    }
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Lista de Dispositivos</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a asp-action="Create" class="btn btn-outline-success">
+                        <i class="fa-solid fa-plus"></i> Nuevo
+                    </a>
+                </div>
+                <div class="col-sm-9">
+                    <ul class="list-group list-group-horizontal-sm justify-content-end">
+                        <a style="text-decoration:none;" asp-controller="Devices" asp-action="Index" asp-route-status="1">
+                        <li class="list-group-item @Disponible">Disponibles</li>
+                        </a>
+                        <a style="text-decoration:none;" asp-controller="Devices" asp-action="Index" asp-route-status="2">
+                        <li class="list-group-item @Asignado">Asignados</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-12">
+                    <ejs-grid id="Grid" dataSource="ViewBag.dataSource" allowPaging="true" allowSorting="true" allowResizing="true" allowReordering="true" allowGrouping="true" toolbar="@(new List<string>() { "Search", "ExcelExport", "PdfExport"})" allowFiltering="true" allowSelection="true" allowExcelExport="true" allowPdfExport="true" toolbarClick="toolbarClick">
+                        <e-grid-filterSettings type="Menu"></e-grid-filterSettings>
+                        <e-grid-selectionsettings type="Single"></e-grid-selectionsettings>
+                        <e-grid-columns>
+                            <e-grid-column type="checkbox" width="50"></e-grid-column>
+                            <e-grid-column field="Id" isPrimaryKey="true" visible="false"></e-grid-column>
+                            <e-grid-column field="DeviceType.Name" headerText="Categoria" width="120"></e-grid-column>
+                            <e-grid-column field="DeviceBrand.Name" headerText="Marca" width="110"></e-grid-column>
+                            <e-grid-column field="Ram" headerText="Ram(Gbs)" width="125"></e-grid-column>
+                            <e-grid-column field="ProcessorId.Name" headerText="Procesador" width="200"></e-grid-column>
+                            <e-grid-column field="WindowsId" headerText="Windows" width="140"> </e-grid-column>
+                            <e-grid-column field="AntivirusId" headerText="Antivirus" width="140"> </e-grid-column>
+                            <e-grid-column headerText="Acciones" template="#Actions" width="120"></e-grid-column>
+                        </e-grid-columns>
+                    </ejs-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    window.alertMessage = '@TempData["AlertMessage"]';
+    window.alertIcon = '@TempData["SweetAlertType"]';
+</script>
+
+<script id="Actions" type="text/x-template">
+    <a class="btn btn-sm no-a-decoration" href="/Devices/Edit/${Id}">
+        <i class="fa-solid fa-pen-to-square fa-lg"></i>
+    </a>
+     <a class="btn btn-sm no-a-decoration" href="/Devices/Details/${Id}">
+          <i class="fa-solid fa-circle-info"></i>
+    </a>
+    <a class="btn btn-sm no-a-decoration" href="/Devices/IsDeleteTrue/${Id}">
+         <i class="fa-solid fa-trash"></i>
+    </a>
+</script>

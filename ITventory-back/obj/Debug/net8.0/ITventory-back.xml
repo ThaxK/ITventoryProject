@@ -1,0 +1,1509 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ITventory-back</name>
+    </assembly>
+    <members>
+        <member name="T:Itventory.web.Entidades.Status">
+            <summary>
+            1=Disponible,
+            2=Asignado,
+            3=Pendiente
+            </summary>
+        </member>
+        <member name="M:Itventory.web.Controllers.ActsController.Index">
+            <summary>
+            Obtiene una lista de las actas
+            </summary>
+            <remarks>
+            Este endpoint devuelve todas las actas almacenadas en la base de datos.
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de actas.
+            </returns>
+            <response code="200">Devuelve un JSON que contiene la lista de actas</response>
+            <response code="500">Si ocurre un error al obtener las actas</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.ActsController.Create(WebApplication1.Models.ActModel)">
+            <summary>
+            Crea una acta
+            </summary>
+            <remarks>
+            Este endpoint permite crear un acta en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un booleano en caso de crear el acta</response>
+            <response code="500">Si ocurre un error al crear el acta</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.ActsController.GetAct(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene un acta de la base de datos mediante su Id
+            </summary>
+            <remarks>
+            Este endpoint permite obtener un acta de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un acta
+            </returns>
+            <response code="200">Devuelve un JSON con un acta</response>
+            <response code="500">Si ocurre un error al obtener el acta</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.ActsController.GetActDownload(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene un acta de la base de datos mediante su Id para descargarla
+            </summary>
+            <remarks>
+            Este endpoint permite obtener un acta de la base de datos para descargarla
+            </remarks>
+            <returns>
+            Un JSON que contiene un acta para descargar
+            </returns>
+            <response code="200">Devuelve un JSON con un acta para descargar</response>
+            <response code="500">Si ocurre un error al obtener el acta</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.ActsController.Edit(WebApplication1.Models.ActModel)">
+            <summary>
+            Edita un acta de la base de datos
+            </summary>
+            <remarks>
+            Este endpoint permite editar un acta de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un entero que indica lo siguiente: 1. Se edito correctamente, 2. No se pudo editar, 3. Error en la conexion a la base de datos</response>
+            <response code="500">Si ocurre un error al editar el acta</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.ActsController.DeleteAct(System.Int32)">
+            <summary>
+            Elimina un acta de la base de datos
+            </summary>
+            <remarks>
+            Este endpoint permite eliminar un acta de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano </response>
+            <response code="500">Si ocurre un error al eliminar el acta</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.DevicesController.Index">
+            <summary>
+            Obtiene la lista de dispositivos 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los dispositivos de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de dispositivos
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de dispositivos</response>
+            <response code="500">Si ocurre un error al obtener los dispositivos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.DevicesController.IsNameAvailable(System.String,System.Int32,System.Int32)">
+            <summary>
+            Permite ver si el nombre esta disponible
+            </summary>
+            <remarks>
+            Este endpoint permite saber si un nombre ya esta registrado
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON que contiene un booleano</response>
+            <response code="500">Si ocurre un error al ver los nombres registrados</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.DevicesController.GetSubcategories">
+            <summary>
+            Obtiene una lista de subcategorias
+            </summary>
+            <remarks>
+            Este endpoint permite obtener una lista subcategorias
+            </remarks>
+            <returns>
+            Un JSON que contiene una lista de subcategorias
+            </returns>
+            <response code="200">Devuelve un JSON que contiene una lista de subcategorias</response>
+            <response code="500">Si ocurre un error al obtener las subcategorias</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.DevicesController.GetSoftwareLicenses">
+            <summary>
+            Obtiene una lista de licencias de software
+            </summary>
+            <remarks>
+            Este endpoint permite obtener una lista de licencias de software
+            </remarks>
+            <returns>
+            Un JSON que contiene una lista de licencias de software
+            </returns>
+            <response code="200">Devuelve un JSON que contiene una lista de licencias de software</response>
+            <response code="500">Si ocurre un error al obtener las licencias de software</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.DevicesController.Create(Itventory.web.Models.DeviceModel)">
+            <summary>
+            Permite crear un nuevo dispositivo
+            </summary>
+            <remarks>
+            Este endpoint permite crear un dispositivo
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al crear el dispositivo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.DevicesController.Edit(System.Nullable{System.Int32})">
+            <summary>
+            Permite obtener un dispositivo
+            </summary>
+            <remarks>
+            Este endpoint permite obtener un dispositivo de la base de datos mediante su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene un dispositivo
+            </returns>
+            <response code="200">Devuelve un JSON con un dispositivo</response>
+            <response code="500">Si ocurre un error al obtener el dispositivo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.DevicesController.Edit(Itventory.web.Models.DeviceModel)">
+            <summary>
+            Permite editar un dispositivo
+            </summary>
+            <remarks>
+            Este endpoint permite editar un dispositivo de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al obtener el dispositivo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.DevicesController.IsDeleteTrueAsync(System.Int32)">
+            <summary>
+            Permite eliminar un dispositivo
+            </summary>
+            <remarks>
+            Este endpoint permite eliminar un dispositivo de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON que contiene un booleano</response>
+            <response code="500">Si ocurre un error al eliminar el dispositivo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.EmployeesController.Index">
+            <summary>
+            Obtiene la lista de empleados 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los empleados de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de empleados
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de empleados</response>
+            <response code="500">Si ocurre un error al obtener los empleados</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.EmployeesController.IsDocumentAvailable(System.String,System.Int32)">
+            <summary>
+            Permite saber si un documento ya esta registrado 
+            </summary>
+            <remarks>
+            Este endpoint alerta si un documento ya esta registrado en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al consultar el documento en la base de datos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.EmployeesController.Details(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene todos los detalles de un empleado 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los detalles de un empleado mediante el id
+            </remarks>
+            <returns>
+            Un JSON que contiene el empleado con todos sus detalles
+            </returns>
+            <response code="200">Devuelve un JSON con el empleado y todos sus detalles</response>
+            <response code="500">Si ocurre un error al obtener al empleado</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.EmployeesController.Create(WebApplication1.Models.EmployeeModel)">
+            <summary>
+            Permite crear un empleado
+            </summary>
+            <remarks>
+            Este endpoint permite crear un nuevo empleado en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al crear el empleado</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.EmployeesController.GetEmployee(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene un empleado 
+            </summary>
+            <remarks>
+            Este endpoint devuelve un empleado mediante su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene el empleado 
+            </returns>
+            <response code="200">Devuelve un JSON con el empleado</response>
+            <response code="500">Si ocurre un error al obtener al empleado</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.EmployeesController.Edit(WebApplication1.Models.EmployeeModel)">
+            <summary>
+            Permite editar un empleado
+            </summary>
+            <remarks>
+            Este endpoint permite editar un empleado en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al editar el empleado</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.EmployeesController.IsDeleteTrueAsync(System.Int32)">
+            <summary>
+            Permite eliminar un empleado
+            </summary>
+            <remarks>
+            Este endpoint permite eliminar un empleado de la base de datos por su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene un entero
+            </returns>
+            <response code="200">Devuelve un JSON con un entero 1= Empleado no existente, 2= Empleado con cosas asignadas, 3= Eliminado correctamente</response>
+            <response code="500">Si ocurre un error al eliminar el empleado</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OfficeSuitesController.Index">
+            <summary>
+            Obtiene la lista de suites de office 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos las suites de office que estan en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de suites de office
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de suites de office</response>
+            <response code="500">Si ocurre un error al obtener las suites de office</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OfficeSuitesController.IsUserNameAvailable(System.String,System.Int32)">
+            <summary>
+            Permite saber si un usuario ya tiene una suite de office registrada 
+            </summary>
+            <remarks>
+            Este endpoint alerta si un usuario ya tiene una suite de office registrada
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al consultar el usuario en la base de datos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OfficeSuitesController.DetailsList">
+            <summary>
+            Obtiene una lista de suites de office con todos sus detalles y empleados asignados
+            </summary>
+            <remarks>
+            Este endpoint obtiene una lista de suites de office con todos sus detalles y empleados asignados
+            </remarks>
+            <returns>
+            Un JSON que contiene una lista con las suites de office
+            </returns>
+            <response code="200">Devuelve un JSON con una lista de suites de office</response>
+            <response code="500">Si ocurre un error al consultar las suites de office</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OfficeSuitesController.Details(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene una suite de office con todos sus detalles y empleados asignados
+            </summary>
+            <remarks>
+            Este endpoint obtiene una suite de office con todos sus detalles y empleados asignados
+            </remarks>
+            <returns>
+            Un JSON que contiene la suite de office
+            </returns>
+            <response code="200">Devuelve un JSON con una suite de office</response>
+            <response code="500">Si ocurre un error al consultar la suite de office</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OfficeSuitesController.EmployeesWithoutOfficeSuite(System.Int32)">
+            <summary>
+            Obtiene una lista de empleados que NO estan asignados a una suite de office
+            </summary>
+            <remarks>
+            Este endpoint obtiene una lista de empleados que NO estan asignados a una suite de office
+            </remarks>
+            <returns>
+            Un JSON que contiene una lista con los empleados
+            </returns>
+            <response code="200">Devuelve un JSON con una lista de empleados</response>
+            <response code="500">Si ocurre un error al consultar los empleados</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OfficeSuitesController.EmployeesWithOfficeSuite(System.Int32)">
+            <summary>
+            Obtiene una lista de empleados que SI estan asignados a una suite de office
+            </summary>
+            <remarks>
+            Este endpoint obtiene una lista de empleados que SI estan asignados a una suite de office
+            </remarks>
+            <returns>
+            Un JSON que contiene una lista con los empleados
+            </returns>
+            <response code="200">Devuelve un JSON con una lista de empleados</response>
+            <response code="500">Si ocurre un error al consultar los empleados</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OfficeSuitesController.Create(WebApplication1.Models.OfficeSuiteModel)">
+            <summary>
+            Permite crear una suite de office
+            </summary>
+            <remarks>
+            Este endpoint permite crear una suite de office nueva en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al crear la suite de office</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OfficeSuitesController.Edit(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene una suite de office para editar
+            </summary>
+            <remarks>
+            Este endpoint devuelve una suite de office mediante su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene la suite de office
+            </returns>
+            <response code="200">Devuelve un JSON con la suite de office</response>
+            <response code="500">Si ocurre un error al obtener la suite de office</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OfficeSuitesController.Edit(WebApplication1.Models.OfficeSuiteModel)">
+            <summary>
+            Permite editar una suite de office
+            </summary>
+            <remarks>
+            Este endpoint permite editar una suite de office en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al editar la suite de office</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OfficeSuitesController.Delete(System.Int32)">
+            <summary>
+            Permite eliminar una suite de office
+            </summary>
+            <remarks>
+            Este endpoint permite eliminar una suite de office de la base de datos por su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al eliminar la suite de office</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OtherPeripheralsController.Index">
+            <summary>
+            Obtiene la lista de perifericos mecanicos
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los perifericos mecanicos de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de perifericos mecanicos
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de perifericos mecanicos</response>
+            <response code="500">Si ocurre un error al obtener los perifericos mecanicos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OtherPeripheralsController.IsNameAvailable(System.String,System.Int32)">
+            <summary>
+            Permite saber si un nombre de periferico mecanico ya esta registrado 
+            </summary>
+            <remarks>
+            Este endpoint alerta si un nombre de periferico mecanico ya esta registrado en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al consultar el periferico mecanico en la base de datos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OtherPeripheralsController.Create(Itventory.web.Models.OtherPeripheralModel)">
+            <summary>
+            Permite crear un periferico mecanico
+            </summary>
+            <remarks>
+            Este endpoint permite crear un nuevo periferico mecanico en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al crear el periferico mecanico</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OtherPeripheralsController.Edit(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene un periferico mecanico 
+            </summary>
+            <remarks>
+            Este endpoint devuelve un periferico mecanico mediante su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene el periferico mecanico 
+            </returns>
+            <response code="200">Devuelve un JSON con el periferico mecanico</response>
+            <response code="500">Si ocurre un error al obtener al periferico mecanico</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OtherPeripheralsController.Edit(Itventory.web.Models.OtherPeripheralModel)">
+            <summary>
+            Permite editar un periferico mecanico
+            </summary>
+            <remarks>
+            Este endpoint permite editar un periferico mecanico en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al editar el periferico mecanico</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.OtherPeripheralsController.IsDeleteTrueAsync(System.Int32)">
+            <summary>
+            Permite eliminar un periferico mecanico
+            </summary>
+            <remarks>
+            Este endpoint permite eliminar un periferico mecanico de la base de datos por su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al eliminar el periferico mecanico</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.PeripheralsController.Index">
+            <summary>
+            Obtiene la lista de perifericos 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los perifericos de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de perifericos
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de perifericos</response>
+            <response code="500">Si ocurre un error al obtener los perifericos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.PeripheralsController.IsNameAvailable(System.String,System.Int32,System.Int32)">
+            <summary>
+            Permite saber si un nombre de periferico ya esta registrado 
+            </summary>
+            <remarks>
+            Este endpoint alerta si un nombre de periferico ya esta registrado en la base de datos. Es necesario enviar el nombre y el Id del tipo de periferico
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al consultar el periferico en la base de datos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.PeripheralsController.GetTypes">
+            <summary>
+            Obtiene la lista de tipos de perifericos
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los tipos de perifericos de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de tipos
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de tipos de perifericos</response>
+            <response code="500">Si ocurre un error al obtener los tipos de perifericos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.PeripheralsController.GetBrands">
+            <summary>
+            Obtiene la lista de marcas
+            </summary>
+            <remarks>
+            Este endpoint devuelve todas las marcas de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de marcas
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de marcas</response>
+            <response code="500">Si ocurre un error al obtener las marcas</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.PeripheralsController.Create(Itventory.web.Models.PeripheralModel)">
+            <summary>
+            Permite crear un periferico 
+            </summary>
+            <remarks>
+            Este endpoint permite crear un nuevo periferico en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al crear el periferico</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.PeripheralsController.Edit(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene un periferico 
+            </summary>
+            <remarks>
+            Este endpoint devuelve un periferico mediante su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene el periferico 
+            </returns>
+            <response code="200">Devuelve un JSON con el periferico</response>
+            <response code="500">Si ocurre un error al obtener al periferico</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.PeripheralsController.Edit(Itventory.web.Models.PeripheralModel)">
+            <summary>
+            Permite editar un periferico
+            </summary>
+            <remarks>
+            Este endpoint permite editar un periferico en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al editar el periferico</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.PeripheralsController.IsDeleteTrueAsync(System.Int32)">
+            <summary>
+            Permite eliminar un periferico
+            </summary>
+            <remarks>
+            Este endpoint permite eliminar un periferico de la base de datos por su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al eliminar el periferico</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.ProductsController.Index">
+            <summary>
+            Obtiene la lista de productos 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los productos de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de productos
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de productos</response>
+            <response code="500">Si ocurre un error al obtener los productos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.ProductsController.Create(Itventory.web.Models.ProductModel)">
+            <summary>
+            Permite crear un producto
+            </summary>
+            <remarks>
+            Este endpoint permite crear un nuevo producto en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al crear el producto</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.ProductsController.Edit(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene un producto 
+            </summary>
+            <remarks>
+            Este endpoint devuelve un producto mediante su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene el producto 
+            </returns>
+            <response code="200">Devuelve un JSON con el producto</response>
+            <response code="500">Si ocurre un error al obtener al producto</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.ProductsController.Edit(Itventory.web.Models.ProductModel)">
+            <summary>
+            Permite editar un producto
+            </summary>
+            <remarks>
+            Este endpoint permite editar un producto en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al editar el producto</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.ProductsController.IsDeleteTrueAsync(System.Int32)">
+            <summary>
+            Permite eliminar un producto
+            </summary>
+            <remarks>
+            Este endpoint permite eliminar un producto de la base de datos por su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene un entero
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al eliminar el producto</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SoftwareLicensesController.Index">
+            <summary>
+            Obtiene la lista de licencias de software 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos las licencias de software de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de licencias de software
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de licencias de software</response>
+            <response code="500">Si ocurre un error al obtener las licencias de software</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SoftwareLicensesController.IsSerialAvailable(System.String,System.Int32,System.Int32)">
+            <summary>
+            Permite saber si un serial ya esta registrado 
+            </summary>
+            <remarks>
+            Este endpoint alerta si un serial ya esta registrado en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al consultar el serial en la base de datos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SoftwareLicensesController.GetSubcategories">
+            <summary>
+            Obtiene una lista de subcategorias
+            </summary>
+            <remarks>
+            Este endpoint obtiene una lista de subcategorias
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista con las subcategorias
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de subcategorias</response>
+            <response code="500">Si ocurre un error al consultar las subcategorias en la base de datos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SoftwareLicensesController.Create(WebApplication1.Models.SoftwareLicenseModel)">
+            <summary>
+            Permite crear una licencia de software
+            </summary>
+            <remarks>
+            Este endpoint permite crear una nueva licencia de software en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al crear la licencia</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SoftwareLicensesController.GetSoftwareLicense(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene una licencia de software 
+            </summary>
+            <remarks>
+            Este endpoint devuelve una licencia de software mediante su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene la licencia de software 
+            </returns>
+            <response code="200">Devuelve un JSON con la licencia de software</response>
+            <response code="500">Si ocurre un error al obtener la licencia</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SoftwareLicensesController.Edit(WebApplication1.Models.SoftwareLicenseModel)">
+            <summary>
+            Permite editar una licencia de software
+            </summary>
+            <remarks>
+            Este endpoint permite editar una licencia de software en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al editar la licencia</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SoftwareLicensesController.IsDeleteTrueAsync(System.Int32)">
+            <summary>
+            Permite eliminar una licencia de software
+            </summary>
+            <remarks>
+            Este endpoint permite eliminar una licencia de software de la base de datos por su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al eliminar la licencia</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SubcategoriesController.Index">
+            <summary>
+            Obtiene la lista de subcategorias  
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos las subcategorias de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de subcategorias
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de subcategorias</response>
+            <response code="500">Si ocurre un error al obtener las subcategorias</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SubcategoriesController.IsNameAvailable(System.String,System.Int32,System.Int32)">
+            <summary>
+            Permite saber si una subcategoria ya esta registrada
+            </summary>
+            <remarks>
+            Este endpoint alerta si una subcategoria ya esta registrada en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al consultar la subcategoria en la base de datos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SubcategoriesController.GetCategories">
+            <summary>
+            Obtiene la lista de categorias  
+            </summary>
+            <remarks>
+            Este endpoint devuelve las categorias de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de categorias
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de categorias</response>
+            <response code="500">Si ocurre un error al obtener las categorias</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SubcategoriesController.GetCategoriesVisualizer">
+            <summary>
+            Obtiene la lista completa de categorias 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos las categorias de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista completa de categorias
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de categorias</response>
+            <response code="500">Si ocurre un error al obtener las categorias</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SubcategoriesController.Create(WebApplication1.Model.SubcategoryModel)">
+            <summary>
+            Permite crear una subcategoria
+            </summary>
+            <remarks>
+            Este endpoint permite crear una nueva subcategoria en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al crear la subcategoria</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SubcategoriesController.Edit(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene una subcategoria
+            </summary>
+            <remarks>
+            Este endpoint devuelve una subcategoria mediante su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene la subcategoria 
+            </returns>
+            <response code="200">Devuelve un JSON con la subcategoria</response>
+            <response code="500">Si ocurre un error al obtener la subcategoria</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SubcategoriesController.Edit(WebApplication1.Model.SubcategoryModel)">
+            <summary>
+            Permite editar una subcategoria
+            </summary>
+            <remarks>
+            Este endpoint permite editar una subcategoria en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al editar la subcategoria</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.SubcategoriesController.IsDeleteTrueAsync(System.Int32)">
+            <summary>
+            Permite eliminar una subcategoria
+            </summary>
+            <remarks>
+            Este endpoint permite eliminar una subcategoria de la base de datos por su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al eliminar el empleado</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.UsuariosController.Index">
+            <summary>
+            Obtiene la lista de usuarios 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los usuarios de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de usuarios
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de usuarios</response>
+            <response code="500">Si ocurre un error al obtener los usuarios</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.UsuariosController.Profile(System.String)">
+            <summary>
+            Obtiene el perfil de un usuario 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los detalles de un usuario mediante el id
+            </remarks>
+            <returns>
+            Un JSON que contiene el usuario con todos sus detalles
+            </returns>
+            <response code="200">Devuelve un JSON con el usuario</response>
+            <response code="500">Si ocurre un error al obtener al usuario</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.UsuariosController.IsEmailAvailable(System.String)">
+            <summary>
+            Permite saber si un correo ya esta registrado 
+            </summary>
+            <remarks>
+            Este endpoint alerta si un correo ya esta registrado en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al consultar el correo en la base de datos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.UsuariosController.GetRoles">
+            <summary>
+            Obtiene la lista de roles 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los roles de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de roles
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de roles</response>
+            <response code="500">Si ocurre un error al obtener los roles</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.UsuariosController.Create(Itventory.web.Models.RegisterVM)">
+            <summary>
+            Permite crear un usuario
+            </summary>
+            <remarks>
+            Este endpoint permite crear un nuevo usuario en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un entero
+            </returns>
+            <response code="200">Devuelve un JSON con un entero, 1= Creado exitosamente, 2= Error en la asignación del rol, 3=Error en la creacion del usuario, 4=Los datos enviados estan erroneos</response>
+            <response code="500">Si ocurre un error al crear el usuario</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.UsuariosController.Edit(System.String)">
+            <summary>
+            Obtiene un usuario 
+            </summary>
+            <remarks>
+            Este endpoint devuelve un usuario mediante su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene el usuario 
+            </returns>
+            <response code="200">Devuelve un JSON con el usuario</response>
+            <response code="500">Si ocurre un error al obtener el usuario</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.UsuariosController.Edit(Itventory.web.Models.EditVM)">
+            <summary>
+            Permite editar un usuario
+            </summary>
+            <remarks>
+            Este endpoint permite editar un usuario en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al editar el usuario</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.UsuariosController.Login(Itventory.web.Models.LoginVM)">
+            <summary>
+            Permite loguear un usuario
+            </summary>
+            <remarks>
+            Este endpoint permite loguear un usuario
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al loguear el usuario</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.UsuariosController.Logout">
+            <summary>
+            Permite desloguear un usuario
+            </summary>
+            <remarks>
+            Este endpoint permite desloguear un usuario
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al desloguear el usuario</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.UsuariosController.SoftDelete(System.String)">
+            <summary>
+            Permite activar/desactivar un usuario
+            </summary>
+            <remarks>
+            Este endpoint permite activar o desactivar un usuario en la base de datos por su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene un entero
+            </returns>
+            <response code="200">Devuelve un JSON con un entero 1= Usuario activado exitosamente, 2= Usuario desactivado exitosamente, 3= Usuario inexistente con ese Id</response>
+            <response code="500">Si ocurre un error al eliminar el usuario</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkAreasController.Index">
+            <summary>
+            Obtiene la lista de areas de trabajo 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos las areas de trabajo de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de areas de trabajo
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de areas de trabajo</response>
+            <response code="500">Si ocurre un error al obtener las areas de trabajo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkAreasController.IsNameAvailable(System.String,System.Int32)">
+            <summary>
+            Permite saber si un area de trabajo ya esta registrado 
+            </summary>
+            <remarks>
+            Este endpoint alerta si un area de trabajo ya esta registrado en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al consultar el area de trabajo en la base de datos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkAreasController.Create(WebApplication1.Models.WorkAreaModel)">
+            <summary>
+            Permite crear un area de trabajo
+            </summary>
+            <remarks>
+            Este endpoint permite crear una area de trabajo nueva en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al crear el area de trabajo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkAreasController.Edit(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene un area de trabajo 
+            </summary>
+            <remarks>
+            Este endpoint devuelve un area de trabajo mediante su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene el area de trabajo 
+            </returns>
+            <response code="200">Devuelve un JSON con el area de trabajo</response>
+            <response code="500">Si ocurre un error al obtener el area de trabajo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkAreasController.Edit(WebApplication1.Models.WorkAreaModel)">
+            <summary>
+            Permite editar un area de trabajo
+            </summary>
+            <remarks>
+            Este endpoint permite editar un area de trabajo en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al editar el area de trabajo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkAreasController.IsDeleteTrueAsync(System.Int32)">
+            <summary>
+            Permite eliminar un area de trabajo
+            </summary>
+            <remarks>
+            Este endpoint permite eliminar un area de trabajo de la base de datos por su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene un entero
+            </returns>
+            <response code="200">Devuelve un JSON con un entero 1= Area de trabajo eliminada correctamente, 2= Area de trabajo con empleados asignados, 3= No existe un area de trabajo con ese Id</response>
+            <response code="500">Si ocurre un error al eliminar el area de trabajo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkStationsController.Index">
+            <summary>
+            Obtiene la lista de estaciones de trabajo 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos las estaciones de trabajo de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de estaciones de trabajo
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de estaciones de trabajo</response>
+            <response code="500">Si ocurre un error al obtener las estaciones de trabajo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkStationsController.IsNameAvailable(System.Int32,System.Int32)">
+            <summary>
+            Permite saber si una estación de trabajo ya esta registrado 
+            </summary>
+            <remarks>
+            Este endpoint alerta si una estación de trabajo ya esta registrado en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al consultar la estación de trabajo en la base de datos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkStationsController.GetEmployees">
+            <summary>
+            Obtiene la lista de empleados 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los empleados de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de empleados
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de empleados</response>
+            <response code="500">Si ocurre un error al obtener los empleados</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkStationsController.GetDevices">
+            <summary>
+            Obtiene la lista de dispositivos 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los dispositivos de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de dispositivos
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de dispositivos</response>
+            <response code="500">Si ocurre un error al obtener los dispositivos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkStationsController.GetOtherPeripherals">
+            <summary>
+            Obtiene la lista de perifericos mecanicos
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los perifericos mecanicos de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de perifericos mecanicos
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de perifericos mecanicos</response>
+            <response code="500">Si ocurre un error al obtener los perifericos mecanicos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkStationsController.GetPeripherals">
+            <summary>
+            Obtiene la lista de perifericos 
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los perifericos de la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene la lista de perifericos
+            </returns>
+            <response code="200">Devuelve un JSON con la lista de perifericos</response>
+            <response code="500">Si ocurre un error al obtener los perifericos</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkStationsController.Details(System.Nullable{System.Int32})">
+            <summary>
+            Obtiene una estación de trabajo con todos sus detalles
+            </summary>
+            <remarks>
+            Este endpoint devuelve todos los detalles de un estación de trabajo mediante su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene la estación de trabajo
+            </returns>
+            <response code="200">Devuelve un JSON con la estación de trabajo</response>
+            <response code="500">Si ocurre un error al obtener la estación de trabajo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkStationsController.Create(WebApplication1.Models.WorkStationModel)">
+            <summary>
+            Permite crear una estación de trabajo
+            </summary>
+            <remarks>
+            Este endpoint permite crear una estación de trabajo nueva en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al crear la estación de trabajo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkStationsController.Edit(WebApplication1.Models.WorkStationModel)">
+            <summary>
+            Permite editar una estación de trabajo
+            </summary>
+            <remarks>
+            Este endpoint permite editar una estación de trabajo en la base de datos
+            </remarks>
+            <returns>
+            Un JSON que contiene un booleano
+            </returns>
+            <response code="200">Devuelve un JSON con un booleano</response>
+            <response code="500">Si ocurre un error al editar la estación de trabajo</response>
+        </member>
+        <member name="M:Itventory.web.Controllers.WorkStationsController.IsDeleteTrueAsync(System.Int32)">
+            <summary>
+            Permite eliminar una estación de trabajo
+            </summary>
+            <remarks>
+            Este endpoint permite eliminar una estación de trabajo de la base de datos por su Id
+            </remarks>
+            <returns>
+            Un JSON que contiene un entero
+            </returns>
+            <response code="200">Devuelve un JSON con un entero 1= Estación de trabajo inexistente, 2= Estación de trabajo asignada, 3= Estación de trabajo eliminada exitosamente</response>
+            <response code="500">Si ocurre un error al eliminar la estación de trabajo</response>
+        </member>
+        <member name="T:Itventory.web.Migrations.Initial">
+            <inheritdoc />
+        </member>
+        <member name="M:Itventory.web.Migrations.Initial.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Itventory.web.Migrations.Initial.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Itventory.web.Migrations.Initial.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Itventory.web.Migrations.FirstStep">
+            <inheritdoc />
+        </member>
+        <member name="M:Itventory.web.Migrations.FirstStep.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Itventory.web.Migrations.FirstStep.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Itventory.web.Migrations.ModificacionPerifericos">
+            <inheritdoc />
+        </member>
+        <member name="M:Itventory.web.Migrations.ModificacionPerifericos.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Itventory.web.Migrations.ModificacionPerifericos.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Itventory.web.Migrations.ModificacionPerifericos.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.Id">
+            <summary>
+            Id de dispositivo. Solo es necesario al editar
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.DeviceTypeId">
+            <summary>
+            Id de tipo de dispositivo
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.DeviceBrandId">
+            <summary>
+            Id de la marca del dispositivo 
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.Model">
+            <summary>
+            Modelo del dispositivo
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.Series">
+            <summary>
+            La Serie debe tener menos de 40 caracteres y mas de 5 caracteres
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.ProcessorId">
+            <summary>
+            Id del procesador del dispositivo
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.Ram">
+            <summary>
+            Cantidad de ram del dispositivo
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.SolidStateDrive">
+            <summary>
+            capacidad del disco solido del dispositivo
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.HardDiskDrive">
+            <summary>
+            capacidad del disco mecanico del dispositivo
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.WindowsLicenseId">
+            <summary>
+            solo si incluye. Id de la licencia de windows del dispositivo
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.AntivirusLicenseId">
+            <summary>
+            solo si incluye. Id de la licencia de antivirus del dispositivo
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.DeviceModel.Status">
+            <summary>
+            Status del dispositivo
+            Disponible = 1,
+            Asignado = 2,
+            Pendiente = 3,
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.OtherPeripheralModel.Name">
+            <summary>
+            Nombre del periferico, maximo 30 caracteres
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.PeripheralModel.PeripheralTypeId">
+            <summary>
+            Id de tipo de periferico
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.PeripheralModel.PeripheralBrandId">
+            <summary>
+            Id de marca de periferico
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.PeripheralModel.Model">
+            <summary>
+            Modelo, maximo 30 caracteres
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.PeripheralModel.Series">
+            <summary>
+            Serie, minimo 5 caracteres, maximo 40 caracteres
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.PeripheralModel.Price">
+            <summary>
+            Precio, debe ser mayor a 0 pesos
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.PeripheralModel.PurchaseDate">
+            <summary>
+            Fecha de la compra
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.ProductModel.ProductName">
+            <summary>
+            Nombre del producto
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.ProductModel.UserName">
+            <summary>
+            Nombre de usuario 
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.ProductModel.StartDate">
+            <summary>
+            Fecha de inicio
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.ProductModel.FinishDate">
+            <summary>
+            Fecha de vencimiento
+            </summary>
+        </member>
+        <member name="P:Itventory.web.Models.ProductModel.EmployeeId">
+            <summary>
+            Id del empleado asignado
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.ActModel.Id">
+            <summary>
+            Id de acta. Solo es necesario al editar
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.ActModel.Name">
+            <summary>
+            El Nombre de la acta.
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.ActModel.WorkStationId">
+            <summary>
+            El Id de la workStation.
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.ActModel.File">
+            <summary>
+            El archivo de la acta en formato PDF.
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.EmployeeModel.Id">
+            <summary>
+            Id del empleado. Solo se requiere al editar
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.EmployeeModel.Name">
+            <summary>
+            Nombre, maximo 30 caracteres
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.EmployeeModel.LastName">
+            <summary>
+            Apellidos, maximo 30 caracteres
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.EmployeeModel.DocumentNumber">
+            <summary>
+            Numero de documento, maximo 10 caracteres
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.EmployeeModel.Phone">
+            <summary>
+            Numero de telefono, debe tener 10 caracteres
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.EmployeeModel.Email">
+            <summary>
+            Correo electronico
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.EmployeeModel.Address">
+            <summary>
+            Direccion, maximo 500 caracteres
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.EmployeeModel.WorkAreaId">
+            <summary>
+            Id del area de trabajo al que pertenece
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.OfficeSuiteModel.UserName">
+            <summary>
+            Nombre de la suite, maximo 50 caracteres
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.OfficeSuiteModel.Series">
+            <summary>
+            Serial, maximo 100 caracteres
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.OfficeSuiteModel.StartDate">
+            <summary>
+            Fecha inicial de la suite de office
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.OfficeSuiteModel.FinishDate">
+            <summary>
+            Fecha de vencimiento de la suite de office
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.OfficeSuiteModel.SelectedEmployeeIds">
+            <summary>
+            Lista de Id's de los empleados que hacen parte de la suite de office. Maximo 5 empleados
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.SoftwareLicenseModel.Name">
+            <summary>
+            Nombre de la licencia
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.SoftwareLicenseModel.Series">
+            <summary>
+            Serie de la licencia
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.SoftwareLicenseModel.ProductKey">
+            <summary>
+            Llave de la licencia
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.SoftwareLicenseModel.StartDate">
+            <summary>
+            Fecha de inicio
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.SoftwareLicenseModel.FinishDate">
+            <summary>
+            Fecha de vencimiento
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.SoftwareLicenseModel.SubcategoryId">
+            <summary>
+            Id de la subcategoria
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.WorkAreaModel.Name">
+            <summary>
+            Nombre del area de trabajo
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.WorkStationModel.EmployeeId">
+            <summary>
+            Id del empleado
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.WorkStationModel.ComputerDeviceId">
+            <summary>
+            Id del computador ligado a la estación de trabajo
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.WorkStationModel.SmartPhoneDeviceId">
+            <summary>
+            Id del smartphone ligado a la estación de trabajo.
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.WorkStationModel.PeripheralsIds">
+            <summary>
+            Lista de Id's de perifericos ligados a la estación de trabajo
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Models.WorkStationModel.OtherPeripheralsIds">
+            <summary>
+            Lista de Id's de perifericos mecanicos ligados a la estación de trabajo
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Model.SubcategoryModel.Name">
+            <summary>
+            Nombre de la subcategoria
+            </summary>
+        </member>
+        <member name="P:WebApplication1.Model.SubcategoryModel.CategoryId">
+            <summary>
+            Id de la categoria a la que pertenece
+            </summary>
+        </member>
+    </members>
+</doc>

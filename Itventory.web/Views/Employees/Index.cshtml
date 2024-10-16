@@ -1,0 +1,86 @@
+﻿<script src="~/js/Alert.js"></script>
+<script src="~/js/Employees.js"></script>
+@model IEnumerable<Itventory.web.Entidades.Employee>
+
+@{
+    ViewData["Title"] = "Empleados";
+}
+
+@{
+    var status = Context.Request.Query["status"];
+    var Disponible = "";
+    var Asignado = "";
+
+    switch (status)
+    {
+        case "1":
+            Disponible = "text-white bg-success";
+            break;
+        case "2":
+            Asignado = "text-white bg-success";
+            break;
+        default:
+            break;
+    }
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Lista de Usuarios</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a asp-action="Create" class="btn btn-outline-success">
+                        <i class="fa-solid fa-plus"></i> Nuevo
+                    </a>
+                </div>
+                <div class="col-sm-9">
+                    <ul class="list-group list-group-horizontal-sm justify-content-end">
+                        <a style="text-decoration:none;" asp-controller="Employees" asp-action="Index" asp-route-status="1">
+                        <li class="list-group-item @Disponible">Disponibles</li>
+                        </a>
+                        <a style="text-decoration:none;" asp-controller="Employees" asp-action="Index" asp-route-status="2">
+                        <li class="list-group-item @Asignado">Asignados</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-12">
+                    <ejs-grid id="Grid" dataSource="ViewBag.dataSource" allowPaging="true" allowSorting="true" allowResizing="true" allowReordering="true" allowGrouping="true" toolbar="@(new List<string>() { "Search", "ExcelExport", "PdfExport"})" allowFiltering="true" allowSelection="true" allowExcelExport="true" allowPdfExport="true" toolbarClick="toolbarClick">
+                        <e-grid-filterSettings type="Menu"></e-grid-filterSettings>
+                        <e-grid-selectionsettings type="Single"></e-grid-selectionsettings>
+                        <e-grid-columns>
+                            <e-grid-column type="checkbox" width="50"></e-grid-column>
+                            <e-grid-column field="WorkAreaId" headerText="Area de Trabajo"></e-grid-column>
+                            <e-grid-column field="Name" headerText="Nombre"></e-grid-column>
+                            <e-grid-column field="LastName" headerText="Apellido"></e-grid-column>
+                            <e-grid-column field="CreateAt" headerText="Creado" format="yMd" textAlign="Center"></e-grid-column>
+                            <e-grid-column headerText="Acciones" width="120" textAlign="Center" template="#Actions" textAlign="Center"></e-grid-column>
+                        </e-grid-columns>
+                    </ejs-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="Actions" type="text/x-template">
+    <a class="btn btn-sm no-a-decoration" href="/Employees/Edit/${Id}">
+        <i class="fa-solid fa-pen-to-square fa-lg"></i>
+    </a>
+    <a class="btn btn-sm no-a-decoration" href="/Employees/Details/${Id}">
+        <i class="fa-solid fa-circle-info"></i>
+    </a>
+    <a class="btn btn-sm no-a-decoration" href="/Employees/IsDeleteTrue/${Id}">
+        <i class="fa-solid fa-trash"></i>
+    </a>
+</script>
+
+<script>
+    window.alertMessage = '@TempData["AlertMessage"]';
+    window.alertIcon = '@TempData["SweetAlertType"]';
+</script>

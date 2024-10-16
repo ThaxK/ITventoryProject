@@ -1,0 +1,79 @@
+﻿@model Itventory.web.Entidades.Product
+
+@{
+    ViewData["Title"] = "Crear Software Adicional";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Nuevo Producto Adicional (Productos independientes, Productos individuales de Office)</h6>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-12">
+                <form onsubmit="return validateDates()" asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-3">
+                            <label asp-for="ProductName" class="control-label">Nombre del Producto</label>
+                            <input asp-for="ProductName" class="form-control" />
+                            <span asp-validation-for="ProductName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="UserName" class="control-label">Nombre de Usuario:</label>
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="StartDate" class="control-label">Fecha Inicial</label>
+                            <input id="StartDate" asp-for="StartDate" type="date" class="form-control" />
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="FinishDate" class="control-label">Fecha Final</label>
+                            <input id="FinishDate" asp-for="FinishDate" type="date" class="form-control" />
+                            <span asp-validation-for="FinishDate" class="text-danger"></span>
+                            <span id="dateError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="EmployeeId">Empleado Asignado:</label>
+                            <select asp-for="EmployeeId" asp-items="@ViewBag.EmployeeId" class="form-control">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button id="submit" type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-floppy"></i> Guardar
+                        </button>
+                        <button id="backToList" type="button" class="btn btn-outline-danger" onclick="window.location.href='@Url.Action("Index", "Products")'">
+                            <i class="bi bi-x-octagon"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        function validateDates() {
+            var startDate = document.getElementById('StartDate').value;
+            var finishDate = document.getElementById('FinishDate').value;
+            var dateError = document.getElementById('dateError');
+
+            if (new Date(startDate) >= new Date(finishDate)) {
+                dateError.textContent = 'La fecha inicial debe ser menor a la fecha final';
+                return false;
+            }
+
+            dateError.textContent = '';
+            return true;
+        }
+    </script>
+}

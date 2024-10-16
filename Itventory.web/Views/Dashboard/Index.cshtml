@@ -1,0 +1,259 @@
+﻿<script src="~/js/Alert.js"></script>
+<script src="~/js/Devices.js"></script>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    </div>
+
+    <!-- Charts-->
+
+    <div class="row">
+        <!-- Pie Chart - Empleados-->
+        <div class="col-xl-3 col-lg-4">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 bg-second-primary">
+                    <h6 class="m-0 font-weight-bold text-white">Empleados</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie" style="height: 350px !important ;">
+                        <ejs-accumulationchart id="donutEmpleados">
+                            <e-accumulationchart-tooltipsettings enable="true" header="<b>${point.x}</b>" format="Cantidad: <b>${point.y}</b>"></e-accumulationchart-tooltipsettings>
+                            <e-accumulation-series-collection>
+                                <e-accumulation-series dataSource="ViewBag.chartEmployeeData" xName="Category" yName="Value" name="Status" innerRadius="50%" radius="100%" explodeIndex="0" explode="true" explodeOffset="10%">
+                                    <e-accumulationseries-datalabel name="text" visible="true">
+                                        <e-font fontWeight="600" size="14px"></e-font>
+                                    </e-accumulationseries-datalabel>
+                                </e-accumulation-series>
+                            </e-accumulation-series-collection>
+                        </ejs-accumulationchart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pie Chart - Licencias-->
+        <div class="col-xl-3 col-lg-4">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 bg-second-primary">
+                    <h6 class="m-0 font-weight-bold text-white">Estaciones de trabajo</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie" style="height: 350px !important ;">
+                        <!-- Gráfico de WorkStations -->
+                        <ejs-accumulationchart id="donutWorkStations">
+                            <e-accumulationchart-tooltipsettings enable="true" header="<b>${point.x}</b>" format="Cantidad: <b>${point.y}</b>"></e-accumulationchart-tooltipsettings>
+                            <e-accumulation-series-collection>
+                                <e-accumulation-series dataSource="ViewBag.chartWorkStationData" xName="Category" yName="Value" name="Status" innerRadius="50%" radius="100%" explodeIndex="0" explode="true" explodeOffset="10%">
+                                    <e-accumulationseries-datalabel name="text" visible="true">
+                                        <e-font fontWeight="600" size="14px"></e-font>
+                                    </e-accumulationseries-datalabel>
+                                </e-accumulation-series>
+                            </e-accumulation-series-collection>
+                        </ejs-accumulationchart>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Chart - Licencias-->
+        <div class="col-xl-6 col-lg-7">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 bg-second-primary">
+                    <h6 class="m-0 font-weight-bold text-white">Dispositivos</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie" style="height: 350px !important ;">
+                        <ejs-chart id="barContainerDispositivos">
+                            <e-chart-tooltipsettings enable="true">
+                            </e-chart-tooltipsettings>
+                            <e-chart-primaryxaxis valueType="Category" interval=1>
+                                <e-majorgridlines width="0"></e-majorgridlines>
+                            </e-chart-primaryxaxis>
+                            <e-chart-primaryyaxis>
+                                <e-majorgridlines width="0"></e-majorgridlines>
+                                <e-majorticklines width="0"></e-majorticklines>
+                                <e-linestyle width="0"></e-linestyle>
+                                <e-labelstyle color="transparent"></e-labelstyle>
+                            </e-chart-primaryyaxis>
+                            <e-chart-primaryyaxis interval="5">
+                                <e-majorticklines width="0"></e-majorticklines>
+                                <e-linestyle width="0"></e-linestyle>
+                            </e-chart-primaryyaxis>
+                            <e-chart-chartarea>
+                                <e-chartarea-border width="0"></e-chartarea-border>
+                            </e-chart-chartarea>
+                            <e-series-collection>
+                                <e-series dataSource="ViewBag.chartDeviceData" xName="DeviceTypeName" yName="Disponibles" name="Disponibles" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column" fill="#2A69AC">
+                                </e-series>
+                                <e-series dataSource="ViewBag.chartDeviceData" xName="DeviceTypeName" yName="Asignados" name="Asignados" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column" fill="#F9A825">
+                                </e-series>
+                            </e-series-collection>
+                        </ejs-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Area Chart - Perifericos -->
+        <div class="col-xl-6 col-lg-7">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 bg-second-primary">
+                    <h6 class="m-0 font-weight-bold text-white">Perifericos</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area" style="height: 350px !important;">
+                        <ejs-chart id="barContainerPerifericos">
+                            <e-chart-tooltipsettings enable="true">
+                            </e-chart-tooltipsettings>
+                            <e-chart-primaryxaxis valueType="Category" interval=1>
+                                <e-majorgridlines width="0"></e-majorgridlines>
+                            </e-chart-primaryxaxis>
+                            <e-chart-primaryyaxis>
+                                <e-majorgridlines width="0"></e-majorgridlines>
+                                <e-majorticklines width="0"></e-majorticklines>
+                                <e-linestyle width="0"></e-linestyle>
+                                <e-labelstyle color="transparent"></e-labelstyle>
+                            </e-chart-primaryyaxis>
+                            <e-chart-primaryyaxis interval="5">
+                                <e-majorticklines width="0"></e-majorticklines>
+                                <e-linestyle width="0"></e-linestyle>
+                            </e-chart-primaryyaxis>
+                            <e-chart-chartarea>
+                                <e-chartarea-border width="0"></e-chartarea-border>
+                            </e-chart-chartarea>
+                            <e-series-collection>
+                                <e-series dataSource="ViewBag.chartPeripheralData" xName="PeripheralTypeName" yName="Disponibles" name="Disponibles" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column" fill="#2A69AC">
+                                </e-series>
+                                <e-series dataSource="ViewBag.chartPeripheralData" xName="PeripheralTypeName" yName="Asignados" name="Asignados" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column" fill="#F9A825">
+                                </e-series>
+                            </e-series-collection>
+                        </ejs-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Chart - Licencias-->
+        <div class="col-xl-6 col-lg-7">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 bg-second-primary">
+                    <h6 class="m-0 font-weight-bold text-white">Licencias de software</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie" style="height: 350px !important ;">
+                        <ejs-chart id="barContainerLicenciasSoftware">
+                            <e-chart-tooltipsettings enable="true">
+                            </e-chart-tooltipsettings>
+                            <e-chart-primaryxaxis valueType="Category" interval=1>
+                                <e-majorgridlines width="0"></e-majorgridlines>
+                            </e-chart-primaryxaxis>
+                            <e-chart-primaryyaxis>
+                                <e-majorgridlines width="0"></e-majorgridlines>
+                                <e-majorticklines width="0"></e-majorticklines>
+                                <e-linestyle width="0"></e-linestyle>
+                                <e-labelstyle color="transparent"></e-labelstyle>
+                            </e-chart-primaryyaxis>
+                            <e-chart-primaryyaxis interval="5">
+                                <e-majorticklines width="0"></e-majorticklines>
+                                <e-linestyle width="0"></e-linestyle>
+                            </e-chart-primaryyaxis>
+                            <e-chart-chartarea>
+                                <e-chartarea-border width="0"></e-chartarea-border>
+                            </e-chart-chartarea>
+                            <e-series-collection>
+                                <e-series dataSource="ViewBag.chartLicenseData" xName="SubcategoryName" yName="Disponibles" name="Disponibles" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column" fill="#2A69AC">
+                                </e-series>
+                                <e-series dataSource="ViewBag.chartLicenseData" xName="SubcategoryName" yName="NoDisponibles" name="No Disponibles" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column" fill="#F9A825">
+                                </e-series>
+                            </e-series-collection>
+                        </ejs-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Pie Chart - Licencias-->
+        <div class="col-xl-9 col-lg-8">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 bg-second-primary">
+                    <h6 class="m-0 font-weight-bold text-white">Empleados por Area de Trabajo</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie" style="height: 350px !important ;">
+                        <ejs-chart id="barContainerWorkAreas">
+                            <e-chart-tooltipsettings enable="true">
+                            </e-chart-tooltipsettings>
+                            <e-chart-primaryxaxis valueType="Category" interval=1>
+                                <e-majorgridlines width="0"></e-majorgridlines>
+                            </e-chart-primaryxaxis>
+                            <e-chart-primaryyaxis>
+                                <e-majorgridlines width="0"></e-majorgridlines>
+                                <e-majorticklines width="0"></e-majorticklines>
+                                <e-linestyle width="0"></e-linestyle>
+                                <e-labelstyle color="transparent"></e-labelstyle>
+                            </e-chart-primaryyaxis>
+                            <e-chart-primaryyaxis interval="5">
+                                <e-majorticklines width="0"></e-majorticklines>
+                                <e-linestyle width="0"></e-linestyle>
+                            </e-chart-primaryyaxis>
+                            <e-chart-chartarea>
+                                <e-chartarea-border width="0"></e-chartarea-border>
+                            </e-chart-chartarea>
+                            <e-series-collection>
+                                <e-series dataSource="ViewBag.chartEmployeeBrData" xName="WorkAreaName" yName="Count" name="Empleados por Área" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column">
+                                </e-series>
+                            </e-series-collection>
+                        </ejs-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pie Chart - Productos más vendidos-->
+        <div class="col-xl-3 col-lg-4">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 bg-second-primary">
+                    <h6 class="m-0 font-weight-bold text-white">Suites de Office</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie" style="height: 350px !important ;">
+                        <ejs-accumulationchart id="donutSuites">
+                            <e-accumulationchart-tooltipsettings enable="true" header="<b>${point.x}</b>" format="Cantidad: <b>${point.y}</b>"></e-accumulationchart-tooltipsettings>
+                            <e-accumulation-series-collection>
+                                <e-accumulation-series dataSource="ViewBag.chartSuiteData" xName="Category" yName="Value" name="Status" innerRadius="50%" radius="100%" explodeIndex="0" explode="true" explodeOffset="10%">
+                                    <e-accumulationseries-datalabel name="text" visible="true">
+                                        <e-font fontWeight="600" size="14px"></e-font>
+                                    </e-accumulationseries-datalabel>
+                                </e-accumulation-series>
+                            </e-accumulation-series-collection>
+                        </ejs-accumulationchart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid --> 
+<script>
+    window.alertMessage = '@TempData["AlertMessage"]';
+    window.alertIcon = '@TempData["SweetAlertType"]';
+</script>

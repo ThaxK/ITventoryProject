@@ -1,0 +1,50 @@
+﻿@model Itventory.web.Entidades.Subcategory
+
+@{
+    ViewData["Title"] = "Crear Recurso";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Nuevo Recurso</h6>
+        </div>
+        <div class="card-body ">
+            <div class="col-sm-12">
+                <form asp-action="Create" asp-controller="Subcategories" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-6">
+                            <label asp-for="CategoryId" class="control-label">Categoria</label>
+                            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label asp-for="Name" class="control-label">Nombre</label>
+                            <input asp-for="Name" type="text" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button id="submit" type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-floppy"></i> Guardar
+                        </button>
+                        <button id="backToList" type="button" class="btn btn-outline-danger" onclick="window.location.href='@Url.Action("Index", "Subcategories")'">
+                            <i class="bi bi-x-octagon"></i> Cancelar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

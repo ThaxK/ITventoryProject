@@ -1,0 +1,76 @@
+﻿@model Itventory.web.Entidades.Peripheral
+
+@{
+    ViewData["Title"] = "Modificar Perifericos";
+}
+
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Editar Periferico Electronico</h6>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-12">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input asp-for="Status" type="hidden" />
+                    <div class="form-row">
+                        <div class="form-group col-sm-4">
+                            <label asp-for="PeripheralTypeId" class="control-label"> Categoria</label>
+                            <select asp-for="PeripheralTypeId" class="form-control" asp-items="ViewBag.PeripheralTypeId">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span asp-validation-for="PeripheralTypeId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label asp-for="PeripheralBrandId" class="control-label">Marca </label>
+                            <select asp-for="PeripheralBrandId" class="form-control" asp-items="ViewBag.PeripheralBrandId">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span asp-validation-for="PeripheralBrandId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label asp-for="Model" class="control-label">Modelo</label>
+                            <input asp-for="Model" class="form-control" />
+                            <span asp-validation-for="Model" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label asp-for="Series" class="control-label">Serie</label>
+                            <input asp-for="Series" class="form-control" />
+                            <span asp-validation-for="Series" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label asp-for="Price" class="control-label">Precio de Compra $ (COP)</label>
+                            <input asp-for="Price" class="form-control" type="number" required min="0" placeholder="$">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label asp-for="PurchaseDate" class="control-label">Fecha de Compra</label>
+                            <input id="PurchaseDate" asp-for="PurchaseDate" type="date" class="form-control" />
+                            <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+                            <span id="dateError" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button id="submit" type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-floppy"></i> Guardar
+                        </button>
+                        <button id="backToList" type="button" class="btn btn-outline-danger" o onclick="window.location.href='@Url.Action("Index", "Peripherals")'">
+                            <i class="bi bi-x-octagon"></i> Cancelar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

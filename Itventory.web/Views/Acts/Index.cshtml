@@ -1,0 +1,127 @@
+﻿<script src="~/js/Alert.js"></script>
+<script src="~/js/Actas.js"></script>
+@model IEnumerable<Itventory.web.Entidades.Act>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Lista de Actas</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a asp-action="Create" class="btn btn-outline-success">
+                        <i class="fa-solid fa-plus"></i> Nuevo
+                    </a>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-12">
+                    <ejs-grid id="Grid" dataSource="ViewBag.dataSource" allowPaging="true" allowSorting="true" allowResizing="true" allowReordering="true" allowGrouping="true" toolbar="@(new List<string>() { "Search"})" allowFiltering="true" allowSelection="true">
+                        <e-grid-filterSettings type="Menu"></e-grid-filterSettings>
+                        <e-grid-selectionsettings type="Single"></e-grid-selectionsettings>
+                        <e-grid-columns>
+                            <e-grid-column type="checkbox" width="50"></e-grid-column>
+                            <e-grid-column field="Id" headerText="Numero" isPrimaryKey="true" isIdentity="true"></e-grid-column>
+                            <e-grid-column field="Name" headerText="Nombre de la Acta"></e-grid-column>
+                            <e-grid-column field="WorkStation" headerText="No. Estacion de Trabajo"></e-grid-column>
+                            <e-grid-column field="Employee" headerText="Empleado Asignado"></e-grid-column>
+                            <e-grid-column headerText="Acciones" template="#Actions" width="120"></e-grid-column>
+                        </e-grid-columns>
+                    </ejs-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="pdfViewerModal" tabindex="-1" role="dialog" aria-labelledby="pdfViewerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfViewerModalLabel">Vista previa de PDF</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="cerrarModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfViewerFrame" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cerrarModal()" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="confirmarDescargaBtn">Confirmar Descarga</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.alertMessage = '@TempData["AlertMessage"]';
+    window.alertIcon = '@TempData["SweetAlertType"]';
+</script>
+
+<script id="Actions" type="text/x-template">
+    <a class="btn btn-sm no-a-decoration" href="/Acts/Edit/${Id}">
+        <i class="fa-solid fa-pen-to-square fa-lg"></i>
+    </a>
+     <a class="btn btn-sm no-a-decoration" onclick="verPdf(${Id})">
+            <i class="fa-solid fa-eye"></i>
+     </a>
+    <a class="btn btn-sm no-a-decoration" href="/Acts/DeleteAct/${Id}">
+        <i class="fa-solid fa-trash"></i>
+    </a>
+</script>
+<script>
+    function verPdf(id) {
+        $.ajax({
+            url: '/Acts/Download/' + id,
+            type: 'GET',
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (data, status, xhr) {
+                // Verifica que data es un Blob
+                if (data instanceof Blob) {
+                    const pdfUrl = URL.createObjectURL(data);
+                    console.log('Blob creado correctamente:', pdfUrl);
+
+                    var filename = '';
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('attachment') !== -1) {
+                        var matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
+                        if (matches != null && matches[1]) {
+                            filename = matches[1].replace(/['"]/g, '');
+                        }
+                    }
+
+                    $('#confirmarDescargaBtn').attr('download', filename);
+                    $('#pdfViewerFrame').attr('src', pdfUrl);
+                    $('#pdfViewerModal').modal('show');
+                } else {
+                    mostrarAlerta();
+                }
+            },
+            error: function (error) {
+                mostrarAlerta();
+            }
+        });
+    }
+
+    $('#confirmarDescargaBtn').on('click', function () {
+        var link = document.createElement('a');
+        link.href = $('#pdfViewerFrame').attr('src');
+        link.download = $('#confirmarDescargaBtn').attr('download');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        cerrarModal();
+        mostrarAlerta();
+    });
+</script>

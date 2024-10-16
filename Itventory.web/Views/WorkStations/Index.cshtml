@@ -1,0 +1,88 @@
+﻿<script src="~/js/Alert.js"></script>
+<script src="~/js/WorkStation.js"></script>
+@model IEnumerable<Itventory.web.Entidades.WorkStation>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var status = Context.Request.Query["status"];
+    var Pendiente = "";
+    var Asignado = "";
+
+    switch (status)
+    {
+        case "2":
+            Asignado = "text-white bg-success";
+            break;
+        case "3":
+            Pendiente = "text-white bg-success";
+            break;
+        default:
+            break;
+    }
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Lista de Estaciones de Trabajo</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a asp-action="Create" class="btn btn-outline-success">
+                        <i class="fa-solid fa-plus"></i> Nuevo
+                    </a>
+                </div>
+                <div class="col-sm-9">
+                    <ul class="list-group list-group-horizontal-sm justify-content-end">
+                        <a style="text-decoration:none;" asp-controller="WorkStations" asp-action="Index" asp-route-status="2">
+                        <li class="list-group-item @Asignado">Asignado</li>
+                        </a>
+                        <a style="text-decoration:none;" asp-controller="WorkStations" asp-action="Index" asp-route-status="3">
+                        <li class="list-group-item @Pendiente">Pendiente</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-12">
+                    <ejs-grid id="Grid" dataSource="ViewBag.dataSource" allowPaging="true" allowSorting="true" allowResizing="true" allowReordering="true" allowGrouping="true" toolbar="@(new List<string>() { "Search", "ExcelExport", "PdfExport"})" allowFiltering="true" allowSelection="true" allowExcelExport="true" allowPdfExport="true" toolbarClick="toolbarClick">
+                        <e-grid-filterSettings type="Menu"></e-grid-filterSettings>
+                        <e-grid-selectionsettings type="Single"></e-grid-selectionsettings>
+                        <e-grid-columns>
+                            <e-grid-column type="checkbox" width="50"></e-grid-column>
+                            <e-grid-column field="Id" headerText="No." isPrimaryKey="true" isIdentity="true"></e-grid-column>
+                            <e-grid-column field="Employee.Name" headerText="Empleados"></e-grid-column>
+                            <e-grid-column field="Devices" headerText="Dispositivos"></e-grid-column>
+                            <e-grid-column field="Status" headerText="Estado"></e-grid-column>
+                            <e-grid-column headerText="Acciones" width="120" template="#Actions"></e-grid-column>
+                        </e-grid-columns>
+                    </ejs-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.alertMessage = '@TempData["AlertMessage"]';
+    window.alertIcon = '@TempData["SweetAlertType"]';
+</script>
+
+<script id="Actions" type="text/x-template">
+    <a class="btn btn-sm no-a-decoration" href="/WorkStations/Edit/${Id}">
+        <i class="fa-solid fa-pen-to-square fa-lg"></i>
+    </a>
+     <a class="btn btn-sm no-a-decoration" href="/WorkStations/Details/${Id}">
+          <i class="fa-solid fa-circle-info"></i>
+    </a>
+
+    ${if(Status != "Asignado")}
+     <a class="btn btn-sm no-a-decoration" href="/WorkStations/IsDeleteTrue/${Id}">
+         <i class="fa-solid fa-trash"></i>
+    </a>
+    ${/if}
+</script>

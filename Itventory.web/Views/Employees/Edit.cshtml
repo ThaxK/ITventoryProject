@@ -1,0 +1,72 @@
+﻿@model Itventory.web.Entidades.Employee
+
+@{
+    ViewData["Title"] = "Actualizar Empleado";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Modificar Empleado</h6>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-12">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Status" />
+                    <div class="form-row">
+                        <div class="form-group col-sm-3">
+                            <label asp-for="WorkAreaId" class="control-label">Area de trabajo:</label>
+                            <select asp-for="WorkAreaId" class="form-control" asp-items="ViewBag.WorkAreaId"></select>
+                            <span asp-validation-for="WorkAreaId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Name" class="control-label">Nombre:</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="LastName" class="control-label">Apellido:</label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="DocumentNumber" class="control-label">Numero de Documento:</label>
+                            <input asp-for="DocumentNumber" class="form-control" type="number" />
+                            <span asp-validation-for="DocumentNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Phone" class="control-label">Telefono:</label>
+                            <input asp-for="Phone" class="form-control" type="number" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Email" class="control-label">Correo Electronico:</label>
+                            <input asp-for="Email" class="form-control" type="email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label asp-for="Address" class="control-label">Direccion de Residencia (Opcional.)</label>
+                            <textarea asp-for="Address" class="form-control" rows="1"></textarea>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-floppy"></i> Guardar
+                        </button>
+                        <button id="backToList" type="button" class="btn btn-outline-danger" onclick="window.location.href='@Url.Action("Index", "Employees")'">
+                            <i class="bi bi-x-octagon"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

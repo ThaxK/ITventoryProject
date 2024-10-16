@@ -1,0 +1,116 @@
+﻿@model Itventory.web.Entidades.SoftwareLicense
+
+@{
+    ViewData["Title"] = "Modificar Licencia de Software";
+}
+
+
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Editar Licencia</h6>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-12">
+                <form onsubmit="return validateDates()"  asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input asp-for="Status" type="hidden" />
+
+                    <div class="form-row">
+                        <div class="form-group col-sm-4">
+                            <label asp-for="SubcategoryId" class="control-label">Categoria</label>
+                            <select asp-for="SubcategoryId" class="form-control" asp-items="ViewBag.SubcategoryId">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                            <span asp-validation-for="SubcategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label asp-for="Name" class="control-label">Nombre</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label asp-for="Series" class="control-label">Serie</label>
+                            <input asp-for="Series" class="form-control" />
+                            <span asp-validation-for="Series" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label asp-for="ProductKey" class="control-label">Llave</label>
+                            <input asp-for="ProductKey" class="form-control" />
+                            <span asp-validation-for="ProductKey" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label asp-for="StartDate" class="control-label">Fecha Inicial</label>
+                            <input id="StartDate" asp-for="StartDate" type="date" class="form-control" />
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label asp-for="FinishDate" class="control-label">Fecha Final</label>
+                            <input id="FinishDate" asp-for="FinishDate" type="date" class="form-control" />
+                            <span asp-validation-for="FinishDate" class="text-danger"></span>
+                            <span id="dateError" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button id="submit" type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-floppy"></i> Guardar
+                        </button>
+                        <button id="backToList" type="button" class="btn btn-outline-danger" o onclick="window.location.href='@Url.Action("Index", "SoftwareLicenses")'">
+                            <i class="bi bi-x-octagon"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        function validateDates() {
+            var startDate = document.getElementById('StartDate').value;
+            var finishDate = document.getElementById('FinishDate').value;
+            var dateError = document.getElementById('dateError');
+
+            if (new Date(startDate) >= new Date(finishDate)) {
+                dateError.textContent = 'La fecha inicial debe ser menor a la fecha final';
+                return false;
+            }
+
+            dateError.textContent = '';
+            return true;
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var subcategorySelect = document.getElementById("SubcategoryId");
+            var stockField = document.getElementById("Stock");
+            var stockLabel = document.querySelector(".stock-field label");
+
+            toggleStockField(subcategorySelect, stockField, stockLabel);
+
+            subcategorySelect.addEventListener("change", function () {
+                toggleStockField(subcategorySelect, stockField, stockLabel);
+            });
+
+            function toggleStockField(selectElement, stockElement, stockLabelElement) {
+                if (selectElement.value === "6") {
+                    stockElement.style.display = "";
+                    stockLabelElement.style.display = "";
+                } else {
+                    stockElement.style.display = "none";
+                    stockLabelElement.style.display = "none";
+                    stockElement.value = "1";
+                }
+            }
+        });
+    </script>
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    
+    <title>@ViewData["Title"] - Itventory.web</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/22.2.5/material3.css" />
+    <script src="https://cdn.syncfusion.com/ej2/23.1.36/dist/ej2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+    <link href="~/vendor/toastr/toastr.min.css" rel="stylesheet">
+    <link href="~/vendor/sweetalert/sweetalert.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @await RenderSectionAsync("Estilos", required: false)
+</head>
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <li>
+                <a class="sidebar-brand d-flex align-items-center justify-content-center">
+                    <div class="mx-3">
+                        <div class="sidebar-brand-text">
+                            <i class="bi bi-pc-display"></i> Itventory
+                        </div>
+                        <i class="bi bi-pc-display ml-2 d-none" id="sidebarIcon"></i>
+                    </div>
+                </a>
+
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Dashboard" asp-action="Index">
+                    <i class="bi bi-graph-up"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdministracion">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Administración</span>
+                </a>
+                <div id="collapseAdministracion" class="collapse" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Almacen") || User.IsInRole("It"))
+                        {
+                        <a class="collapse-item" asp-controller="Subcategories" asp-action="Index">Recursos</a>
+                        }
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Recursos Humanos"))
+                        {
+                        <a class="collapse-item" asp-controller="WorkAreas" asp-action="Index">Areas de Trabajo</a>
+                        }
+                        @if (User.IsInRole("Administrador"))
+                        {
+                        <a class="collapse-item" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                        }
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Almacen") || User.IsInRole("Recursos Humanos"))
+                        {
+                        <a class="collapse-item" asp-controller="Employees" asp-action="Index">Empleados</a>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            @if (User.IsInRole("Administrador") || User.IsInRole("Almacen") || User.IsInRole("It"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLicenses">
+                        <i class="bi bi-microsoft"></i>
+                        <span>Licencias</span>
+                    </a>
+                    <div id="collapseLicenses" class="collapse" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+
+                            <a class="collapse-item" asp-controller="OfficeSuites" asp-action="Index">Office</a>
+                            <a class="collapse-item" asp-controller="SoftwareLicenses" asp-action="Index">Software</a>
+                            <a class="collapse-item" asp-controller="Products" asp-action="Index">Productos Adicionales</a>
+
+                        </div>
+                    </div>
+                </li>
+            }
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventario">
+                    <i class="fas fa-fw fa-clipboard-list"></i>
+                    <span>Inventario</span>
+                </a>
+                <div id="collapseInventario" class="collapse" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Almacen") || User.IsInRole("It"))
+                        {
+                            <a class="collapse-item" asp-controller="Peripherals" asp-action="Index">Perifericos</a>
+                        }
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Almacen") || User.IsInRole("Recursos Humanos"))
+                        {
+                            <a class="collapse-item" asp-controller="OtherPeripherals" asp-action="Index">Perifericos Mecanicos</a>
+                        }
+
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Almacen"))
+                        {
+                        <a class="collapse-item" asp-controller="Devices" asp-action="Index">Dispositivos</a>
+                        }
+
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Almacen") || User.IsInRole("Recursos Humanos") || User.IsInRole("It"))
+                        {
+                            <a class="collapse-item" asp-controller="WorkStations" asp-action="Index">Estaciones de Trabajo</a>
+                            <a class="collapse-item" asp-controller="Acts" asp-action="Index">Actas</a>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top">
+
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <div>
+                        <img src="~/images/Navisaf.png" alt="Descripción de la imagen" width="70%" height="70%">
+                    </div>
+
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario: @User.Identity.Name</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" asp-controller="Usuarios" asp-action="Profile">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <form asp-controller="Usuarios" asp-action="Logout" method="post">
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Salir
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Itventory 2023 Navisaf - CAP</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/js/sb-admin-2.js"></script>
+    <script src="~/vendor/toastr/toastr.min.js"></script>
+    <script src="~/vendor/sweetalert/sweetalert.js"></script>
+    <script src="~/vendor/loadingoverlay/loadingoverlay.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	<ejs-scripts></ejs-scripts>
+    <script>
+        document.getElementById('sidebarToggle').addEventListener('click', function () {
+            // Cambiar la visibilidad del texto e icono al hacer clic en el botón
+            var text = document.querySelector('.sidebar-brand-text');
+            var icon = document.getElementById('sidebarIcon');
+            if (text.classList.contains('d-none')) {
+                text.classList.remove('d-none');
+                icon.classList.add('d-none');
+            } else {
+                text.classList.add('d-none');
+                icon.classList.remove('d-none');
+            }
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+

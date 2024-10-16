@@ -1,0 +1,292 @@
+﻿<script src="~/js/Alert.js"></script>
+<script src="~/js/Actas.js"></script>
+@model Itventory.web.Entidades.WorkStation
+
+
+@{
+    ViewData["Title"] = "Detalles Estacion de Trabajo";
+    var alertMessage = TempData["AlertMessage"] as string;
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Detalles de la Estacion de Trabajo No.@Model.Id</h6>
+        </div>
+        <div class="card-body">
+            <div id="Cap" class="row">
+
+                <div class="card-header py-1 bg-second-primary">
+                    <h6 class="m-0 font-weight-bold text-white">Detalles del Empleado</h6>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Employee.Name" class="control-label">Nombre</label>
+                        <input asp-for="Employee.Name" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Employee.LastName" class="control-label">Apellido</label>
+                        <input asp-for="Employee.LastName" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Employee.DocumentNumber" class="control-label">Número de Documento</label>
+                        <input asp-for="Employee.DocumentNumber" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Employee.Email" class="control-label">Correo</label>
+                        <input asp-for="Employee.Email" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Employee.Address" class="control-label">Direccion</label>
+                        <input asp-for="Employee.Address" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="card-header py-1 bg-second-primary">
+                    <h6 class="m-0 font-weight-bold text-white">Detalles del Equipo de Computo</h6>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="ComputerDevice.DeviceBrand.Name " class="control-label">Marca </label>
+                        <input asp-for="ComputerDevice.DeviceBrand.Name" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="ComputerDevice.Model" class="control-label">Modelo </label>
+                        <input asp-for="ComputerDevice.Model" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="ComputerDevice.Series" class="control-label">Serie </label>
+                        <input asp-for="ComputerDevice.Series" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ComputerDevice.Processor.Name" class="control-label">Procesador </label>
+                        <input asp-for="ComputerDevice.Processor.Name" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="ComputerDevice.Ram" class="control-label">Memoria RAM (GB)</label>
+                        <input asp-for="ComputerDevice.Ram" class="form-control" type="number" readonly>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="ComputerDevice.HardDiskDrive" class="control-label">Disco Duro (HDD)</label>
+                        <input asp-for="ComputerDevice.HardDiskDrive" class="form-control" type="number" readonly>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="ComputerDevice.SolidStateDrive" class="control-label">Unidad de Estado Solido (SSD)</label>
+                        <input asp-for="ComputerDevice.SolidStateDrive" class="form-control" type="number" readonly>
+                    </div>
+                </div>
+
+                @if (Model.ComputerDevice.WindowsLicense != null)
+                {
+                    <div class="col-md-6">
+                        <div class="form-group text-center">
+                            <label class="control-label">Windows Licencia</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input asp-for="ComputerDevice.WindowsLicense.Name" class="form-control" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    @{
+                                        var serial = Model.ComputerDevice.WindowsLicense.Series;
+                                        var last4Digits = serial.Length >= 4 ? serial.Substring(serial.Length - 4) : serial;
+                                    }
+                                    <input class="form-control" value="Serial terminado en: @last4Digits" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.ComputerDevice.AntivirusLicense != null)
+                {
+                    <div class="col-md-6">
+                        <div class="form-group text-center">
+                            <label class="control-label">Antivirus Licencia</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input asp-for="ComputerDevice.AntivirusLicense.Name" class="form-control" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    @{
+                                        var serialA = Model.ComputerDevice.AntivirusLicense.Series;
+                                        var last4DigitsA = serialA.Length >= 4 ? serialA.Substring(serialA.Length - 4) : serialA;
+                                    }
+                                    <input class="form-control" value="Serial terminado en: @last4DigitsA" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.SmartPhoneDevice != null)
+                {
+                    <div class="card-header py-1 bg-second-primary">
+                        <h6 class="m-0 font-weight-bold text-white">Detalles del Celular</h6>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label asp-for="SmartPhoneDevice.DeviceBrand.Name " class="control-label">Marca </label>
+                            <input asp-for="SmartPhoneDevice.DeviceBrand.Name" class="form-control" readonly />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label asp-for="SmartPhoneDevice.Model" class="control-label">Modelo </label>
+                            <input asp-for="SmartPhoneDevice.Model" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label asp-for="SmartPhoneDevice.Series" class="control-label">Serie </label>
+                            <input asp-for="SmartPhoneDevice.Series" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="SmartPhoneDevice.Processor.Name" class="control-label">Procesador </label>
+                            <input asp-for="SmartPhoneDevice.Processor.Name" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label asp-for="SmartPhoneDevice.Ram" class="control-label">Memoria RAM (GB)</label>
+                            <input asp-for="SmartPhoneDevice.Ram" class="form-control" type="number" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label asp-for="SmartPhoneDevice.SolidStateDrive" class="control-label">Almacenamiento</label>
+                            <input asp-for="SmartPhoneDevice.SolidStateDrive" class="form-control" type="number" readonly>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.Peripherals != null && Model.Peripherals.Any())
+                {
+
+                    <div class="card-header py-1 bg-second-primary">
+                        <h6 class="m-0 font-weight-bold text-white">Perifericos</h6>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Serie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var peripheral in Model.Peripherals)
+                            {
+                                <tr>
+                                    <td>@peripheral.PeripheralType.Name</td>
+                                    <td>@peripheral.PeripheralBrand.Name</td>
+                                    <td>@peripheral.Model</td>
+                                    <td>@peripheral.Series</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+                @if (Model.Peripherals != null && Model.OtherPeripherals.Any())
+                {
+                    <div class="card-header py-1 bg-second-primary">
+                        <h6 class="m-0 font-weight-bold text-white">Perifericos Mecanicos (Salud Ocupacional)</h6>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>TIPO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var otherperipheral in Model.OtherPeripherals)
+                            {
+                                <tr>
+                                    <td>@otherperipheral.Name</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+            <div class="form-group text-center">
+
+                <ejs-progressbutton id="General" content="Generar Acta" enableProgress="true" duration="2000" cssClass="btn btn-outline-success e-hide-spinner e-progress-top" iconCss="fa-solid fa-download"
+                                    onclick="generarActa('@Url.Action("DescargarPDF", "WorkStations")')">
+                </ejs-progressbutton>
+
+                <ejs-progressbutton id="Finalizacion" content="Generar Acta Finalizacion" enableProgress="true" duration=2000 cssClass="btn btn-outline-warning e-hide-spinner e-progress-top" iconCss="fa-solid fa-download"
+                                    onclick="generarActa('@Url.Action("GenerarPDFFinalizacion", "WorkStations")')">
+                </ejs-progressbutton>
+
+                <button id="cancelar" type="button" class="btn btn-outline-danger" onclick="window.location.href='@Url.Action("Index", "WorkStations")'">
+                    <i class="bi bi-x-octagon"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="pdfViewerModal" tabindex="-1" role="dialog" aria-labelledby="pdfViewerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfViewerModalLabel">Vista previa de PDF</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="cerrarModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="cerrarModal()" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="confirmarDescargaBtn">Confirmar Descarga</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function generarActa(url) {
+        var button = event.target;
+        var originalText = $(button).html();
+        $(button).addClass('disabled').html('<i class="bi bi-arrow-clockwise"></i> Descargando...');
+
+        var div = document.getElementById('Cap');
+        var Id = @Model.Id;
+
+        html2canvas(div).then(function (canvas) {
+            var base64Image = canvas.toDataURL('image/png').split(',')[1];
+            enviarImagenBase64(url, base64Image, Id, button, originalText);
+        });
+
+    }
+</script>

@@ -1,0 +1,164 @@
+﻿@model Itventory.web.Entidades.Device
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Nuevo Dispositivo</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-row">
+                    <div class="form-group col-sm-4">
+                        <label asp-for="DeviceTypeId" class="control-label">Categoria</label>
+                        <select asp-for="DeviceTypeId" class="form-control" asp-items="ViewBag.DeviceTypeId" id="typeSelect">
+                            <option value="">Seleccionar...</option>
+                        </select>
+                        <span asp-validation-for="DeviceTypeId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label asp-for="DeviceTypeId" class="control-label">Marca</label>
+                        <select asp-for="DeviceBrandId" class="form-control" asp-items="ViewBag.DeviceBrandId">
+                            <option value="">Seleccionar...</option>
+                        </select>
+                        <span asp-validation-for="DeviceTypeId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label asp-for="Model" class="control-label">Modelo</label>
+                        <input asp-for="Model" class="form-control" />
+                        <span asp-validation-for="Model" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label asp-for="Series" class="control-label">Serie</label>
+                        <input asp-for="Series" class="form-control" />
+                        <span asp-validation-for="Series" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label asp-for="ProcessorId" class="control-label">Procesador</label>
+                        <select asp-for="ProcessorId" class="form-control" id="processorSelect">
+                            <option value="">Seleccionar...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label asp-for="Ram" class="control-label">Ram(Gbs)</label>
+                        <input asp-for="Ram" class="form-control" type="number" required min="0" value="0">
+                        <span asp-validation-for="Ram" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label asp-for="SolidStateDrive" class="control-label">Disco Solido</label>
+                        <input asp-for="SolidStateDrive" class="form-control" type="number" required value="0" min="0">
+                        <span asp-validation-for="SolidStateDrive" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label asp-for="HardDiskDrive" class="control-label">Disco Mecanico</label>
+                        <input asp-for="HardDiskDrive" class="form-control" type="number" required value="0" min="0">
+                        <span asp-validation-for="HardDiskDrive" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label asp-for="WindowsLicenseId" class="control-label">Licencia de Windows(Opcional)</label>
+                        <select asp-for="WindowsLicenseId" class="form-control" asp-items="ViewBag.WindowsLicenseId">
+                            <option id="brandSearchInput" value="">Seleccionar...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label asp-for="AntivirusLicenseId" class="control-label">Licencia de Antivirus(Opcional)</label>
+                        <select asp-for="AntivirusLicenseId" class="form-control" asp-items="ViewBag.AntivirusLicenseId">
+                            <option id="brandSearchInput" value="">Seleccionar...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group text-center">
+                    <button id="submit" type="submit" class="btn btn-outline-primary">
+                        <i class="bi bi-floppy"></i> Guardar
+                    </button>
+                    <button id="backToList" type="button" class="btn btn-outline-danger" o onclick="window.location.href='@Url.Action("Index", "Devices")'">
+                        <i class="bi bi-x-octagon"></i> Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            var windowsLicenciaLabel = $("label[for='WindowsLicenseId']");
+            var antivirusLicenciaLabel = $("label[for='AntivirusLicenseId']");
+            var windowsLicencia = $("#WindowsLicenseId");
+            var antivirusLicencia = $("#AntivirusLicenseId");
+            var tipoSelect = $("#typeSelect");
+            var processorSelect = $("#processorSelect");
+
+            // Ocultar licencias por defecto
+            windowsLicenciaLabel.hide();
+            antivirusLicenciaLabel.hide();
+            windowsLicencia.hide();
+            antivirusLicencia.hide();
+
+            function toggleLicencias(categoriaSeleccionada) {
+                if (categoriaSeleccionada == 6) {
+                    windowsLicenciaLabel.show();
+                    antivirusLicenciaLabel.show();
+                    windowsLicencia.show();
+                    antivirusLicencia.show();
+                } else {
+                    windowsLicenciaLabel.hide();
+                    antivirusLicenciaLabel.hide();
+                    windowsLicencia.hide();
+                    antivirusLicencia.hide();
+                }
+            }
+
+            tipoSelect.on("change", function () {
+                var categoriaSeleccionada = tipoSelect.val();
+                toggleLicencias(categoriaSeleccionada);
+
+                var listaFiltradaDeProcesadores;
+                if (categoriaSeleccionada == 6) {
+                    var listaFiltradaDeProcesadores = @Html.Raw(Json.Serialize(ViewData["ListaProcesadoresIdPc"]));
+
+                } else if (categoriaSeleccionada == 7) {
+                    var listaFiltradaDeProcesadores = @Html.Raw(Json.Serialize(ViewData["ListaProcesadoresIdTel"]));
+
+                }
+
+                processorSelect.empty();
+                processorSelect.append($("<option></option>")
+                    .attr("value", "")
+                    .text("Seleccionar..."));
+
+                $.each(listaFiltradaDeProcesadores, function (index, procesador) {
+                    processorSelect.append($("<option></option>")
+                        .attr("value", procesador.value)
+                        .text(procesador.text));
+                });
+            });
+
+            toggleLicencias(tipoSelect.val());
+        });
+
+    </script>
+
+            }

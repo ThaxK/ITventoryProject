@@ -1,0 +1,115 @@
+﻿@model Itventory.web.Entidades.Employee
+
+@{
+    ViewData["Title"] = "Detalles de Empleado";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Informacion del Empleado</h6>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-12">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Status" />
+                    <div class="form-row">
+                        <div class="form-group col-sm-3">
+                            <label asp-for="WorkAreaId" class="control-label">Area de Trabajo:</label>
+                            <select asp-for="WorkAreaId" class="form-control" asp-items="ViewBag.WorkAreaId" disabled></select>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Name" class="control-label">Nombre:</label>
+                            <input asp-for="Name" class="form-control" readonly />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="LastName" class="control-label">Apellido:</label>
+                            <input asp-for="LastName" class="form-control" readonly />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="DocumentNumber" class="control-label">Numero de Documento:</label>
+                            <input asp-for="DocumentNumber" class="form-control" type="number" readonly />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Phone" class="control-label">Telefono:</label>
+                            <input asp-for="Phone" class="form-control" type="number" readonly />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Email" class="control-label">Correo:</label>
+                            <input asp-for="Email" class="form-control" type="email" readonly />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Status" class="control-label">Estado:</label>
+                            <input asp-for="Status" class="form-control" type="text" readonly />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="CreateAt" class="control-label">Fecha de Creacion:</label>
+                            <input asp-for="CreateAt" class="form-control" type="date" readonly />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="UpdateAt" class="control-label">Ultima Actualizacion:</label>
+                            <input asp-for="UpdateAt" class="form-control" type="date" readonly />
+                        </div>
+                        <div class="form-group col-sm-9">
+                            <label asp-for="Address" class="control-label">Direccion de Residencia (Opcional.)</label>
+                            <textarea asp-for="Address" class="form-control" rows="1" readonly></textarea>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="card-header py-3 bg-second-primary">
+                                <h6 class="m-0 font-weight-bold text-white">Detalles del Empleado</h6>
+                            </div>
+                            <br>
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <label asp-for="OfficeSuites" class="control-label">Suite de Office:</label>
+                                    @foreach (var officeSuite in Model.OfficeSuites)
+                                    {
+                                        <input asp-for="OfficeSuites" class="form-control" type="text" readonly value="@officeSuite.OfficeFullName" />
+                                    }
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label asp-for="WorkStations" class="control-label">Estacion de Trabajo Numero:</label>
+                                    @foreach (var workStation in Model.WorkStations)
+                                    {
+                                        <input asp-for="WorkStations" class="form-control" type="text" readonly value="@workStation.Id" />
+                                    }
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="control-label">Lista de Software adicionales:</label>
+                                    <table class="table" style="border-collapse: collapse; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Nombre del Producto</th>
+                                                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de Finalización</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var product in Model.Products)
+                                            {
+                                                <tr>
+                                                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@product.ProductName</td>
+                                                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@(product.FinishDate.HasValue ? product.FinishDate.Value.ToString("yyyy/MM/dd") : "N/A")</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-primary">
+                            <i class="bi bi-pencil-square"></i> Editar
+                        </a>
+                        <button id="backToList" type="button" class="btn btn-outline-danger" onclick="window.location.href='@Url.Action("Index", "Employees")'">
+                            <i class="bi bi-x-octagon"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

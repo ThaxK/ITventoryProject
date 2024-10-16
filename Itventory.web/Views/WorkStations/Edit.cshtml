@@ -1,0 +1,100 @@
+﻿@model Itventory.web.Entidades.WorkStation
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+@{
+    ViewData["Title"] = "Editar Estacion de Trabajo";
+
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Editar Estacion de Trabajo</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input asp-for="Status" type="hidden" class="form-control">
+                <div class="form-row">
+                    <div class="form-group col-sm-4">
+                        <label asp-for="EmployeeId" class="control-label">Empleado</label>
+                        <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>                      
+                        <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label asp-for="ComputerDeviceId" class="control-label">Computador</label>
+                        <select asp-for="ComputerDeviceId" class="form-control" asp-items="ViewBag.PcId">                           
+                        </select>
+                        <span asp-validation-for="ComputerDeviceId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label asp-for="SmartPhoneDeviceId" class="control-label">Celular</label>
+                        <select asp-for="SmartPhoneDeviceId" class="form-control" asp-items="ViewBag.SmarthphonesId">
+                            @if (Model.SmartPhoneDeviceId == null)
+                            {
+                                <option value="">Seleccionar...</option>
+                            }
+                            else
+                            {
+                                <option value="">Quitar Celular...</option>
+                            }
+                        </select>
+                        <span asp-validation-for="SmartPhoneDeviceId" class="text-danger"></span>
+                    </div>
+
+                    
+                    @foreach (var category in ViewBag.PeripheralCategories)
+                    {
+                        <div class="form-group col-sm-4">
+                            <label class="control-label">@category.Key</label>
+                            <select id="peripherals" asp-for="PeripheralsIds" size="8" class="form-control" asp-items="@category.Value" multiple>
+                            </select>
+                        </div>
+                    }
+
+                    <div class="form-group col-sm-4">
+                        <label asp-for="OtherPeripheralsIds" class="control-label">Perifericos Mecanicos (Salud Ocupacional)</label>
+                        <select id="otherPeripherals" asp-for="OtherPeripheralsIds" size="8 rows" class="form-control" asp-items="ViewBag.OtherPeripheralsId" multiple>
+                        </select>
+                    </div>                  
+
+                </div>
+
+
+                <div class="form-group text-center">
+                    <button id="submit" type="submit" class="btn btn-outline-primary">
+                        <i class="bi bi-floppy"></i> Guardar
+                    </button>
+                    <button id="backToList" type="button" class="btn btn-outline-danger" o onclick="window.location.href='@Url.Action("Index", "WorkStations")'">
+                        <i class="bi bi-x-octagon"></i> Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $("select[multiple]").each(function () {
+                $(this).find("option:contains('Asignado')").prop("selected", true);
+            });
+
+            $("select[multiple]").on("mousedown", "option", function (e) {
+                e.preventDefault();
+                $(this).prop("selected", !$(this).prop("selected"));
+
+                $(this).parent().change();
+            });
+        });
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

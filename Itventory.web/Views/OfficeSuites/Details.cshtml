@@ -1,0 +1,83 @@
+﻿@model Itventory.web.Entidades.OfficeSuite
+
+@{
+    ViewData["Title"] = "Detalles Suite de Office";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Detalles Suite de Office</h6>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-12">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Status" />
+                    <div class="form-row">
+                        <div class="form-group col-sm-3">
+                            <label asp-for="UserName" class="control-label">Nombre de Usuario: </label>
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Series" class="control-label">Serial (SN):</label>
+                            <input asp-for="Series" class="form-control" />
+                            <span asp-validation-for="Series" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Status" class="control-label">Estado:</label>
+                            <input asp-for="Status" class="form-control" />
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="Stock" class="control-label">Licencias Ocupadas (Cupo maximo 5):</label>
+                            <input asp-for="Stock" class="form-control" />
+                            <span asp-validation-for="Stock" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="StartDate" class="control-label">Fecha Inicial:</label>
+                            <input asp-for="StartDate" class="form-control" type="date" />
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="FinishDate" class="control-label">Fecha Final:</label>
+                            <input asp-for="FinishDate" class="form-control" type="date" />
+                            <span asp-validation-for="FinishDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="CreateAt" class="control-label">Fecha de Creacion:</label>
+                            <input asp-for="CreateAt" class="form-control" type="date" />
+                            <span asp-validation-for="CreateAt" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label asp-for="UpdateAt" class="control-label">Ultima Actualizacion:</label>
+                            <input asp-for="UpdateAt" class="form-control" type="date" />
+                            <span asp-validation-for="UpdateAt" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label">Empleados asignados a la suite de office:</label>
+                            <ul>
+                                @foreach (var employee in Model.Employees)
+                                {
+                                    <li>
+                                        @employee.FullName
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-primary">
+                            <i class="bi bi-pencil-square"></i> Editar
+                        </a>
+                        <button id="backToList" type="button" class="btn btn-outline-danger" onclick="window.location.href='@Url.Action("Index", "OfficeSuites")'">
+                            <i class="bi bi-x-octagon"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿@model Itventory.web.Entidades.Act
+@{
+    ViewData["Title"] = "Eliminar Estacion de Trabajo";
+}
+
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Eliminacion de Estacion de Trabajo</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="Delete">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input asp-for="Id" type="hidden" />
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label asp-for="WorkStationId" class="control-label">Estacion de Trabajo</label>
+                        <select asp-for="WorkStationId" class="form-control" asp-items="ViewBag.WorkStationId">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Nombre de la acta a entregar</label>
+                        <select asp-for="Name" class="form-control">
+                            <option value="Acta de Finalizacion">Acta de Finalizacion</option>
+                        </select>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label asp-for="File" class="control-label">Celulares</label>
+                        <select asp-for="File" class="form-control" asp-items="ViewBag.SmarthphonesId">
+                            <option value="">actaFinal...</option>
+                        </select>
+                        <span asp-validation-for="File" class="text-danger"></span>
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-group text-center">
+                    <button id="submit" type="submit" class="btn btn-outline-primary">
+                        <i class="bi bi-floppy"></i> Enviar
+                    </button>
+                    <button id="backToList" type="button" class="btn btn-outline-danger" o onclick="window.location.href='@Url.Action("Index", "WorkStations")'">
+                        <i class="bi bi-x-octagon"></i> Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,56 @@
+﻿<script src="~/js/Alert.js"></script>
+<script src="~/js/Products.js"></script>
+@model IEnumerable<Itventory.web.Entidades.Product>
+
+@{
+    ViewData["Title"] = "Softwares Adicionales";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Lista de Productos Adicionales de Office</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a asp-action="Create" class="btn btn-outline-success">
+                        <i class="fa-solid fa-plus"></i> Nuevo
+                    </a>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-12">
+                    <ejs-grid id="Grid" dataSource="ViewBag.dataSource" allowPaging="true" allowSorting="true" allowResizing="true" allowReordering="true" allowGrouping="true" toolbar="@(new List<string>() { "Search", "ExcelExport", "PdfExport"})" allowFiltering="true" allowSelection="true" allowExcelExport="true" allowPdfExport="true" toolbarClick="toolbarClick">
+                        <e-grid-filterSettings type="Menu"></e-grid-filterSettings>
+                        <e-grid-selectionsettings type="Single"></e-grid-selectionsettings>
+                        <e-grid-columns>
+                            <e-grid-column type="checkbox" width="50"></e-grid-column>
+                            <e-grid-column field="UserName" headerText="Nombre de Usuario"></e-grid-column>
+                            <e-grid-column field="ProductName" headerText="Producto"></e-grid-column>
+                            <e-grid-column field="EmployeeId" headerText="Empleado Asignado"></e-grid-column>
+                            <e-grid-column field="StartDate" headerText="Inicio" textAlign="Center" format="yMd"></e-grid-column>
+                            <e-grid-column field="FinishDate" headerText="Vencimiento" textAlign="Center" format="yMd"></e-grid-column>
+                            <e-grid-column headerText="Acciones" width="120" textAlign="Center" template="#Actions"></e-grid-column>
+                        </e-grid-columns>
+                    </ejs-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="Actions" type="text/x-template">
+    <a class="btn btn-sm no-a-decoration" href="/Products/Edit/${Id}">
+        <i class="fa-solid fa-pen-to-square fa-lg"></i>
+    </a>
+    <a class="btn btn-sm no-a-decoration" href="/Products/IsDeleteTrue/${Id}">
+        <i class="fa-solid fa-trash"></i>
+    </a>
+</script>
+
+<script>
+    window.alertMessage = '@TempData["AlertMessage"]';
+    window.alertIcon = '@TempData["SweetAlertType"]';
+</script>

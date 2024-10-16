@@ -1,0 +1,61 @@
+﻿<script src="~/js/Alert.js"></script>
+@model EditVM
+
+@{
+    ViewData["Title"] = "Perfil de Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Perfil de Usuario</h6>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-12">
+                <form asp-action="ChangePassword" method="post" class="form-horizontal">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label asp-for="Email" class="control-label">Correo electrónico:</label>
+                            <input asp-for="Email" class="form-control" readonly />
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label asp-for="Rol" class="control-label">Rol:</label>
+                            <input type="text" asp-for="Rol" class="form-control" readonly />
+                        </div>
+                        <!-- Campos necesarios para el cambio de contraseña -->
+                        <div class="form-group col-sm-6">
+                            <label asp-for="Password" class="control-label">Nueva Contraseña:</label>
+                            <input asp-for="Password" type="password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label asp-for="ConfirmPassword" class="control-label">Confirmar Contraseña:</label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-outline-primary">
+                                <i class="bi bi-floppy"></i> Cambiar Contraseña
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        window.alertMessage = '@TempData["AlertMessage"]';
+        window.alertIcon = '@TempData["SweetAlertType"]';
+    </script>
+
+}

@@ -1,0 +1,119 @@
+﻿@model Itventory.web.Entidades.Device
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-second-primary">
+            <h6 class="m-0 font-weight-bold text-white">Detalles del Dispositivo</h6>
+        </div>
+        <div class="card-body">
+        <div class="row margineDivs">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="DeviceType.Name " class="control-label">Tipo </label>
+                    <input asp-for="DeviceType.Name" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="DeviceBrand.Name " class="control-label">Marca </label>
+                    <input asp-for="DeviceBrand.Name" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Model" class="control-label">Modelo </label>
+                    <input asp-for="Model" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="SolidStateDrive" class="control-label">Disco Solido</label>
+                    <input asp-for="SolidStateDrive" class="form-control" type="number" readonly>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="HardDiskDrive" class="control-label">Disco Mecanico</label>
+                    <input asp-for="HardDiskDrive" class="form-control" type="number" readonly>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Ram" class="control-label">RAM (GB)</label>
+                    <input asp-for="Ram" class="form-control" type="number" readonly>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Processor.Name" class="control-label">Procesador </label>
+                    <input asp-for="Processor.Name" class="form-control" readonly />
+                </div>
+            </div> <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Series" class="control-label">Serie </label>
+                    <input asp-for="Series" class="form-control" readonly />
+                </div>
+            </div>
+
+            @if (Model.WindowsLicense != null)
+            {
+                <div class="col-md-6">
+                    <div class="form-group text-center">
+                        <label class="control-label">Windows Licencia</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input asp-for="WindowsLicense.Name" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                @{
+                                    var serial = Model.WindowsLicense.Series;
+                                    var last4Digits = serial.Length >= 4 ? serial.Substring(serial.Length - 4) : serial;
+                                }
+                                <input class="form-control" value="Serial terminado en: @last4Digits" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.AntivirusLicense != null)
+            {
+                <div class="col-md-6">
+                    <div class="form-group text-center">
+                        <label class="control-label">Antivirus Licencia</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input asp-for="AntivirusLicense.Name" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                @{
+                                    var serialA = Model.AntivirusLicense.Series;
+                                    var last4DigitsA = serialA.Length >= 4 ? serialA.Substring(serialA.Length - 4) : serialA;
+                                }
+                                <input class="form-control" value="Serial terminado en: @last4DigitsA" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+          
+
+        </div>
+            <div class="form-group text-center">
+                <button id="backToList" type="button" class="btn btn-outline-success" onclick="window.location.href='@Url.Action("Edit", "Devices", new { id = Model.Id })'">
+                    <i class="bi bi-x-octagon"></i> Editar
+                </button>
+
+                <button id="backToList" type="button" class="btn btn-outline-danger" o onclick="window.location.href='@Url.Action("Index", "Devices")'">
+                    <i class="bi bi-x-octagon"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
